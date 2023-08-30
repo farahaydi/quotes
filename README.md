@@ -24,3 +24,31 @@ in this lab I'm start daeling with **Gson** and reading a Json File I'll provide
 - in test I make a one test called **testQuotes** this test use InputStream to read file 
 - I use assertTrue and assertFalse to test my work
 -  You can use this command **./gradlew** test to test my work
+
+//----------------------------------------------------------------------------------------------------------------------
+# Lab 09
+in this lab I'm start working with **Getting HTTP data in Java with HttpURLConnection** as this :
+> I Create a function for read a data from Api called **readFromApi**
+> start with set up the URL using URL class
+> open a connection between your java app and url=> Using HttpURLConnection
+> use openConnection() method
+>  I'm use a InputStreamReader it's read a data as a Stream => mean block of data 
+> I'm use a bufferReader to read this stream as Chunk or piece
+> Store each line from bufferReader in quoteData String.
+> use Gson to convert json data into java object.
+> class **MainQuote** -> this class contain 2 Attribute I use this Class to store data coming from API.
+> I take an Object from this class call mainQuote and use method **from Json** to convert Json data(fromApi)into object type MainQuote.
+> **RecentQuote Class we use it on lab 8 to store a static Json file into it**
+> I'm creating an array from type RecentQuotes => to store object from type RecentQuotes inside this array.
+> I'm Reading the Json File(this file contain many Quotes) using BufferReader and store it in existingReader.
+> I take an Object from this class call RecentQuotes and use method **from Json** to convert Json data(from Exsisting File)into object type RecentQuotes.
+> in catch initializes existingQuotes as an empty array of RecentQuotes
+//****************************************************************************************
+> I'm creating 2 String variable to store Quote and Author that we take from API.
+> call the RecentQuotes constructor and just pass to this constructor Quote and Author (beacause the other data is different between api data and RecentQuot class), i'm Sending the other data as empty.
+> Create Array List From Type RecentQuotes and send the exsisting json file to it(to save previous the data after I run the project)
+> add a object we take from RecentQuotes that i pass a 2 String variable in constructor to the arrayList
+> write a new file that contain existingQuotes and new Quotes we take from Api
+> convert the updatedQuotesList (which is a list of RecentQuotes objects) into a JSON representation and then write that JSON data to a file specified by the writeToFile FileWriter
+> in catch if there is any Error Happen it will print "An error occurred while trying to fetch data from the API."
+and it's will print the error then will call a readFile(); that print a Quote and Author from File Already exsisting (as we create on lab8)

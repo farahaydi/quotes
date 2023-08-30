@@ -23,4 +23,10 @@ public class RecentQuotes {
         return author;
     }
 
+    @Override
+    public String toString() {
+        return "RecentQuotes{" +
+                "text='" + text + '\'' +
+                '}';
+    }
 }
