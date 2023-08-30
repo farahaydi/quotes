@@ -4,9 +4,14 @@
 package quotes;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.junit.jupiter.api.Test;
 
 import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
 import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -35,6 +40,39 @@ class AppTest {
         if (randomQuote.equals("")) {
             System.out.println("There is no quotes for this author");
         }
+    }
+
+    @Test
+    public void testReadFromApi() throws IOException {
+        URL quoteUrl = new URL("https://favqs.com/api/qotd?token=a4c5260ddff106ce351772ca2370f6d1");
+        HttpURLConnection quoteConnection = (HttpURLConnection) quoteUrl.openConnection();
+        quoteConnection.setRequestMethod("GET");
+        InputStreamReader readQuote = new InputStreamReader(quoteConnection.getInputStream());
+        BufferedReader readBufferQuote = new BufferedReader(readQuote);
+        String quoteData = readBufferQuote.readLine();
+
+        assertNotNull(quoteData);
+
+        Gson gson = new Gson();
+        MainQuote mainQuote = gson.fromJson(quoteData, MainQuote.class);
+
+        assertNotNull(mainQuote);
+        assertNotNull(mainQuote.getQuote());
+        assertNotNull(mainQuote.getQuote().getBody());
+        assertNotNull(mainQuote.getQuote().getAuthor());
+    }
+
+    @Test
+    public void testUseExsistFile() {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+        RecentQuotes[] existingQuotes;
+        try (BufferedReader existingReader = new BufferedReader(new FileReader("app/src/main/resources/recentquotes.json"))) {
+            existingQuotes = gson.fromJson(existingReader, RecentQuotes[].class);
+        } catch (IOException e) {
+            existingQuotes = new RecentQuotes[0];
+        }
+        assertNotNull(existingQuotes);
     }
     }
 
